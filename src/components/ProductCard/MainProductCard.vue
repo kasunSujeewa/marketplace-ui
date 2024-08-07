@@ -1,12 +1,12 @@
 <template>
-  <Card class="relative group rounded-xl p-2">
+  <Card @click="clickCard()" class="relative group rounded-xl p-2">
    
     <CardContent>
       <img :src="`/assets/logo/${product.link}`" class="card-image" alt="">
       <Badge class="absolute -top-2 -right-2" variant="destructive" v-if="counter.cart.find((item) => item.id === product.id)">
             {{ counter.cart.find((item) => item.id === product.id)?.count }}
           </Badge>
-      <div class="absolute inset-0 bg-black bg-opacity-10 flex items-end justify-end pb-3 pr-3 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div :class="`absolute inset-0 bg-black bg-opacity-10 flex items-end justify-end pb-3 pr-3  ${isClicked ? ` opacity-100 ` : `opacity-0 group-hover:opacity-100 ` }  transition-opacity`">
       <button @click="addToCart(product)" class="text-white bg-blue-500 hover:bg-blue-600 rounded-full p-3">
         <ShoppingCart />
       </button>
@@ -50,7 +50,13 @@ import { useCounterStore } from '@/stores/Counter';
 import { Star } from 'lucide-vue-next'
 import { ShoppingCart } from 'lucide-vue-next'
 import { Badge } from '@/components/ui/badge'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+
+const isClicked = ref(false)
+
+const clickCard = () =>{
+  isClicked.value = !isClicked.value
+}
 
 const props = defineProps<{
   product : Product
