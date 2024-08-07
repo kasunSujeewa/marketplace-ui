@@ -2,7 +2,7 @@
   <Card class="relative group rounded-xl p-2">
    
     <CardContent>
-      <img :src="`/src/assets/logo/${product.link}`" class="card-image" alt="">
+      <img :src="`/assets/logo/${product.link}`" class="card-image" alt="">
       <Badge class="absolute -top-2 -right-2" variant="destructive" v-if="counter.cart.find((item) => item.id === product.id)">
             {{ counter.cart.find((item) => item.id === product.id)?.count }}
           </Badge>
