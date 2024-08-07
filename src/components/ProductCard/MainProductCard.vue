@@ -7,7 +7,7 @@
             {{ counter.cart.find((item) => item.id === product.id)?.count }}
           </Badge>
       <div :class="`absolute inset-0 bg-black bg-opacity-10 flex items-end justify-end pb-3 pr-3  ${isClicked ? ` opacity-100 ` : `opacity-0 group-hover:opacity-100 ` }  transition-opacity`">
-      <button @click="addToCart(product)" class="text-white bg-blue-500 hover:bg-blue-600 rounded-full p-3">
+      <button @click.stop="addToCart(product)" class="text-white bg-blue-500 hover:bg-blue-600 rounded-full p-3">
         <ShoppingCart />
       </button>
     </div>
