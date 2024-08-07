@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BellRing, Check } from "lucide-vue-next";
+import { Check } from "lucide-vue-next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
 import { useCounterStore } from "@/stores/Counter";
 import { Products } from "@/data/Products";
 
@@ -44,7 +42,7 @@ const counter = useCounterStore();
               </p>
               <p class="text-sm text-muted-foreground">X {{ cart.count }}</p>
               <p class="text-sm font-medium leading-none">
-                LKR {{ Products.find((item) => item.id === cart.id)?.price * cart.count }}
+                LKR {{ cart.price * cart.count }}
               </p>
             </div>
           </div>

@@ -43,10 +43,7 @@
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardFooter
 } from '@/components/ui/card'
 import { Product } from '@/Interfaces/Product';
 import { useCounterStore } from '@/stores/Counter';
