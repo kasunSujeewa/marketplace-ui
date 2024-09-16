@@ -3,21 +3,13 @@
    
     <CardContent>
       <img :src="`/assets/logo/${product.link}`" class="card-image" alt="">
-      <Badge class="absolute -top-2 -right-2" variant="destructive" v-if="counter.cart.find((item) => item.id === product.id)">
-            {{ counter.cart.find((item) => item.id === product.id)?.count }}
-          </Badge>
-      <div :class="`absolute inset-0 bg-black bg-opacity-10 flex items-end justify-end pb-3 pr-3  ${isClicked ? ` opacity-100 ` : `opacity-0 group-hover:opacity-100 ` }  transition-opacity`">
-      <button @click.stop="addToCart(product)" class="text-white bg-blue-500 hover:bg-blue-600 rounded-full p-3">
-        <ShoppingCart />
-      </button>
-    </div>
     </CardContent>
     <CardFooter>
       <div class="grid grid-cols-1 gap-1">
         <div class="grid">
             {{("Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam recusandae corporis fuga accusamus molestias eveniet nihil suscipit nemo iste quidem quasi itaque sequi, magni minima, odio, minus sapiente ex adipisci").substring(0,30)+".."}}
         </div>
-        <div class="grid grid-cols-2 gap-4 justify-items-end">
+        <div class="grid grid-cols-2 gap-4">
             <div class="grid grid-cols-5">
               <Star v-for="(star, index) in stars" :key="index" :color="star.color" />
             </div>
@@ -26,12 +18,24 @@
             </div>
             
         </div>
-        <div class="grid grid-cols-3 items-center gap-1">
-            <div class="grid col-span-2 font-bold text-xl">
-              {{ formatPrice(product.discountedPrice) }}
+        <div class="grid grid-cols-3 items-center gap-1 mt-4">
+          <div class="grid col-span-2 grid-cols-8 font-bold text-xl ">
+            <div class="grid hover:cursor-pointer px-1 rounded-xl hover:bg-gray-50 content-center justify-center">
+              <button @click="removeCart(product)">
+                <Minus class="size-4" />
+              </button>
             </div>
-            <div class="grid line-through text-sm justify-end">
-              {{ formatPrice(product.price) }}
+            <div class="grid col-span-2 text-center">
+              {{ counter.cart.find((item) => item.id === product.id)?.count ?? 0 }}
+            </div>
+            <div class="grid hover:cursor-pointer px-1 rounded-xl hover:bg-gray-50 content-center justify-center">
+              <button @click="addToCart(product)">
+                <Plus class="size-4" />
+              </button>
+            </div>
+          </div>
+            <div class="grid font-bold text-xl justify-end">
+              {{ formatPrice(product.discountedPrice) }}
             </div>
         </div>
       </div>
@@ -48,8 +52,8 @@ import {
 import { Product } from '@/Interfaces/Product';
 import { useCounterStore } from '@/stores/Counter';
 import { Star } from 'lucide-vue-next'
-import { ShoppingCart } from 'lucide-vue-next'
-import { Badge } from '@/components/ui/badge'
+import { Plus } from 'lucide-vue-next'
+import { Minus } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 const isClicked = ref(false)
@@ -75,6 +79,9 @@ const counter = useCounterStore();
 
 const addToCart = (data:Product) =>{
   counter.addCart(data)
+}
+const removeCart = (data:Product) =>{
+  counter.removeCart(data)
 }
 
 const stars = computed(() => {
